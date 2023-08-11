@@ -1,4 +1,4 @@
-import { ordenarBodegas } from "../services/getServices.js";
+import { ordenarBodegas, totalInventarios } from "../services/getServices.js";
 
 const ordenarBodegasController = async (req, res, next) => {
   try {
@@ -9,4 +9,13 @@ const ordenarBodegasController = async (req, res, next) => {
   }
 };
 
-export { ordenarBodegasController };
+const totalInventariosController = async (req, res, next) => {
+  try {
+    const inventarios = await totalInventarios();
+    res.status(200).json(inventarios);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export { ordenarBodegasController, totalInventariosController };
