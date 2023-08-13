@@ -49,4 +49,32 @@ const agregarProductos = async (nombre, descripcion, estado, created_by) => {
   return await inventario;
 };
 
-export { agregarBodega, agregarProductos };
+const nuevoInventario = async (
+  id_bodega,
+  id_producto,
+  cantidad,
+  created_by
+) => {
+  const inventario = new Inventarios();
+  inventario.id_bodega = id_bodega;
+  inventario.id_producto = id_producto;
+  inventario.cantidad = cantidad;
+  const inventarioEncontrado = await inventario.buscarInventario();
+  if (inventarioEncontrado._id === undefined) {
+    const nuevoId = new Counters();
+    nuevoId.collection = "inventarioId";
+    const res = await nuevoId.getID();
+    const { id, session } = res;
+    inventario._id = id;
+    inventario.created_by = created_by;
+    const result = await inventario.agregarInventario();
+    session.endSession();
+    return result;
+  } else {
+    const { _id } = inventarioEncontrado;
+    inventario._id = _id;
+    return await inventario.actualizarInventario();
+  }
+};
+
+export { agregarBodega, agregarProductos, nuevoInventario };

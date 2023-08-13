@@ -1,4 +1,8 @@
-import { agregarBodega, agregarProductos } from "../services/postServices.js";
+import {
+  agregarBodega,
+  agregarProductos,
+  nuevoInventario,
+} from "../services/postServices.js";
 
 const agregarBodegaController = async (req, res, next) => {
   try {
@@ -29,4 +33,23 @@ const agregarProductoController = async (req, res, next) => {
     res.status(500).json(error.message);
   }
 };
-export { agregarBodegaController, agregarProductoController };
+
+const nuevoInventarioController = async (req, res, next) => {
+  try {
+    const { bodega, producto, cantidad, creador } = req.body;
+    const inventario = await nuevoInventario(
+      bodega,
+      producto,
+      cantidad,
+      creador
+    );
+    res.status(200).json(inventario);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+export {
+  agregarBodegaController,
+  agregarProductoController,
+  nuevoInventarioController,
+};

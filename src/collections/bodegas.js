@@ -39,6 +39,8 @@ class Bodegas {
         estado: this.estado,
         created_by: Number(this.created_by),
         created_at: new Date(),
+        updated_at: null,
+        deleted_at: null,
       });
       return resultado;
     } catch (error) {

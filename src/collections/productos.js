@@ -26,6 +26,8 @@ class Productos {
         estado: this.estado,
         created_by: this.created_by,
         created_at: new Date(),
+        updated_at: null,
+        deleted_at: null,
       });
       return resultado;
     } catch (error) {
