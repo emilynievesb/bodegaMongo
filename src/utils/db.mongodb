@@ -1,8 +1,20 @@
 use("db_bodega_campus");
 const currentDate = new Date();
 
+db.createCollection("counters");
+
+db.counters.insertMany([
+  { _id: "userId", sequence_value: 10 },
+  { _id: "productoId", sequence_value: 50 },
+  { _id: "bodegaId", sequence_value: 30 },
+  { _id: "inventarioId", sequence_value: 47 },
+  { _id: "historialId", sequence_value: 11 },
+]);
 //Coleccion usuers
 db.createCollection("users", {
+  // capped: true,
+  // size: 640,
+  // max: 5,
   validator: {
     $jsonSchema: {
       bsonType: "object",
@@ -63,7 +75,7 @@ db.createCollection("users", {
 
 db.users.insertMany([
   {
-    _id: 11,
+    _id: 1,
     nombre: "juan0",
     email: "juan0@hotmail.com",
     email_verified_at: currentDate,
@@ -77,7 +89,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 12,
+    _id: 2,
     nombre: "juan1",
     email: "juan1@hotmail.com",
     email_verified_at: currentDate,
@@ -91,7 +103,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 13,
+    _id: 3,
     nombre: "juan2",
     email: "juan2@hotmail.com",
     email_verified_at: currentDate,
@@ -105,7 +117,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 14,
+    _id: 4,
     nombre: "juan3",
     email: "juan3@hotmail.com",
     email_verified_at: currentDate,
@@ -119,7 +131,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 15,
+    _id: 5,
     nombre: "juan4",
     email: "juan4@hotmail.com",
     email_verified_at: currentDate,
@@ -133,7 +145,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 16,
+    _id: 6,
     nombre: "juan5",
     email: "juan5@hotmail.com",
     email_verified_at: currentDate,
@@ -147,7 +159,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 17,
+    _id: 7,
     nombre: "juan6",
     email: "juan6@hotmail.com",
     email_verified_at: currentDate,
@@ -161,7 +173,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 18,
+    _id: 8,
     nombre: "juan7",
     email: "juan7@hotmail.com",
     email_verified_at: currentDate,
@@ -175,7 +187,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 19,
+    _id: 9,
     nombre: "juan8",
     email: "juan8@hotmail.com",
     email_verified_at: currentDate,
@@ -189,7 +201,7 @@ db.users.insertMany([
     deleted_at: null,
   },
   {
-    _id: 20,
+    _id: 10,
     nombre: "juan9",
     email: "juan9@hotmail.com",
     email_verified_at: currentDate,
@@ -254,7 +266,7 @@ db.createCollection("productos", {
 
 db.productos.insertMany([
   {
-    _id: 11,
+    _id: 1,
     nombre: "producto0",
     descripcion: "producto0",
     estado: 1,
@@ -265,7 +277,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 12,
+    _id: 2,
     nombre: "producto1",
     descripcion: "producto1",
     estado: 1,
@@ -276,7 +288,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 13,
+    _id: 3,
     nombre: "producto2",
     descripcion: "producto2",
     estado: 1,
@@ -287,7 +299,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 14,
+    _id: 4,
     nombre: "producto3",
     descripcion: "producto3",
     estado: 1,
@@ -298,7 +310,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 15,
+    _id: 5,
     nombre: "producto4",
     descripcion: "producto4",
     estado: 1,
@@ -309,7 +321,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 16,
+    _id: 6,
     nombre: "producto5",
     descripcion: "producto5",
     estado: 1,
@@ -320,7 +332,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 17,
+    _id: 7,
     nombre: "producto6",
     descripcion: "producto6",
     estado: 1,
@@ -331,7 +343,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 18,
+    _id: 8,
     nombre: "producto7",
     descripcion: "producto7",
     estado: 1,
@@ -342,7 +354,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 19,
+    _id: 9,
     nombre: "producto8",
     descripcion: "producto8",
     estado: 1,
@@ -353,7 +365,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 20,
+    _id: 10,
     nombre: "producto9",
     descripcion: "producto9",
     estado: 1,
@@ -364,7 +376,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 23,
+    _id: 11,
     nombre: "get chocolatinas",
     descripcion: "chocolate",
     estado: 1,
@@ -375,7 +387,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 24,
+    _id: 12,
     nombre: "lololol",
     descripcion: "chocolate",
     estado: 1,
@@ -386,7 +398,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 25,
+    _id: 13,
     nombre: "sadasdasd",
     descripcion: "chocolate",
     estado: 1,
@@ -397,7 +409,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 26,
+    _id: 14,
     nombre: "milo",
     descripcion: "500 kg",
     estado: 1,
@@ -408,7 +420,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 27,
+    _id: 15,
     nombre: "chocolisto",
     descripcion: "jjjjjj",
     estado: 1,
@@ -419,7 +431,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 28,
+    _id: 16,
     nombre: "Leche",
     descripcion: "deslactosada",
     estado: 1,
@@ -430,7 +442,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 29,
+    _id: 17,
     nombre: "yogurt",
     descripcion: "frescaleche",
     estado: 1,
@@ -441,7 +453,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 30,
+    _id: 18,
     nombre: "cocacola",
     descripcion: "coca cola",
     estado: 1,
@@ -452,7 +464,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 31,
+    _id: 19,
     nombre: "pepsi",
     descripcion: "copia",
     estado: 1,
@@ -463,7 +475,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 32,
+    _id: 20,
     nombre: "postobon",
     descripcion: "manzana",
     estado: 1,
@@ -474,7 +486,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 33,
+    _id: 21,
     nombre: "gaseosa",
     descripcion: "sadasd",
     estado: 1,
@@ -485,7 +497,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 34,
+    _id: 22,
     nombre: "asdasd",
     descripcion: "dfdfssdf",
     estado: 1,
@@ -496,7 +508,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 35,
+    _id: 23,
     nombre: "producto fg 1",
     descripcion: "producto prueba fg",
     estado: 1,
@@ -507,7 +519,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 36,
+    _id: 24,
     nombre: "producto fg 1",
     descripcion: "producto prueba fg",
     estado: 1,
@@ -518,7 +530,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 37,
+    _id: 25,
     nombre: "producto fg 1",
     descripcion: "producto prueba fg",
     estado: 1,
@@ -529,7 +541,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 39,
+    _id: 26,
     nombre: "Dulces",
     descripcion: "Ricos dulces",
     estado: 1,
@@ -540,7 +552,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 40,
+    _id: 27,
     nombre: "Caramelos",
     descripcion: "Dulces y mas",
     estado: 1,
@@ -551,7 +563,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 41,
+    _id: 28,
     nombre: "gato",
     descripcion: "comidad de gato",
     estado: 1,
@@ -562,7 +574,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 42,
+    _id: 29,
     nombre: "gato",
     descripcion: "comidad de gato",
     estado: 1,
@@ -573,7 +585,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 43,
+    _id: 30,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -584,7 +596,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 44,
+    _id: 31,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -595,7 +607,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 45,
+    _id: 32,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -606,7 +618,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 46,
+    _id: 33,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -617,7 +629,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 47,
+    _id: 34,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -628,7 +640,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 48,
+    _id: 35,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -639,7 +651,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 49,
+    _id: 36,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -650,7 +662,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 50,
+    _id: 37,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -661,7 +673,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 51,
+    _id: 38,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -672,7 +684,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 52,
+    _id: 39,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -683,7 +695,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 53,
+    _id: 40,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -694,7 +706,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 54,
+    _id: 41,
     nombre: "whiskas",
     descripcion: "comidad de gato",
     estado: 1,
@@ -705,7 +717,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 55,
+    _id: 42,
     nombre: "dog food",
     descripcion: "comida de perro",
     estado: 1,
@@ -716,7 +728,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 56,
+    _id: 43,
     nombre: "Producto Anderson Atuesta",
     descripcion: "Esta es una prueba",
     estado: 1,
@@ -727,7 +739,7 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 57,
+    _id: 44,
     nombre: "Producto Anderson Atuesta",
     descripcion: "Esta es una prueba",
     estado: 1,
@@ -738,36 +750,69 @@ db.productos.insertMany([
     deleted_at: null,
   },
   {
-    _id: 58,
+    _id: 45,
     nombre: "Producto Anderson Atuesta",
     descripcion: "Esta es una prueba",
     estado: 1,
     created_by: 11,
     update_by: null,
-    created_at: new Date("2022-07-21 20:38:17"),
-    updated_at: new Date("2022-07-21 20:38:17"),
+    created_at: new Date("2022-07-21 20:34:38"),
+    updated_at: new Date("2022-07-21 20:34:38"),
     deleted_at: null,
   },
   {
-    _id: 59,
+    _id: 46,
     nombre: "Producto Anderson Atuesta",
     descripcion: "Esta es una prueba",
     estado: 1,
     created_by: 11,
     update_by: null,
-    created_at: new Date("2022-07-21 20:49:42"),
-    updated_at: new Date("2022-07-21 20:49:42"),
+    created_at: new Date("2022-07-21 20:34:39"),
+    updated_at: new Date("2022-07-21 20:34:39"),
     deleted_at: null,
   },
   {
-    _id: 60,
-    nombre: "Pringles",
-    descripcion: "papas fritas",
+    _id: 47,
+    nombre: "Producto Anderson Atuesta",
+    descripcion: "Esta es una prueba",
     estado: 1,
-    created_by: null,
+    created_by: 11,
     update_by: null,
-    created_at: new Date("2023-05-25 03:52:26"),
-    updated_at: new Date("2023-05-25 03:52:26"),
+    created_at: new Date("2022-07-21 20:34:40"),
+    updated_at: new Date("2022-07-21 20:34:40"),
+    deleted_at: null,
+  },
+  {
+    _id: 48,
+    nombre: "Producto Anderson Atuesta",
+    descripcion: "Esta es una prueba",
+    estado: 1,
+    created_by: 11,
+    update_by: null,
+    created_at: new Date("2022-07-21 20:34:42"),
+    updated_at: new Date("2022-07-21 20:34:42"),
+    deleted_at: null,
+  },
+  {
+    _id: 49,
+    nombre: "Producto Anderson Atuesta",
+    descripcion: "Esta es una prueba",
+    estado: 1,
+    created_by: 11,
+    update_by: null,
+    created_at: new Date("2022-07-21 20:34:43"),
+    updated_at: new Date("2022-07-21 20:34:43"),
+    deleted_at: null,
+  },
+  {
+    _id: 50,
+    nombre: "Producto Anderson Atuesta",
+    descripcion: "Esta es una prueba",
+    estado: 1,
+    created_by: 11,
+    update_by: null,
+    created_at: new Date("2022-07-21 20:34:44"),
+    updated_at: new Date("2022-07-21 20:34:44"),
     deleted_at: null,
   },
 ]);
@@ -822,7 +867,7 @@ db.createCollection("bodegas", {
 
 db.bodegas.insertMany([
   {
-    _id: 11,
+    _id: 1,
     nombre: "bodega0",
     id_responsable: 16,
     estado: 1,
@@ -833,7 +878,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 12,
+    _id: 2,
     nombre: "bodega1",
     id_responsable: 18,
     estado: 1,
@@ -844,7 +889,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 13,
+    _id: 3,
     nombre: "bodega2",
     id_responsable: 18,
     estado: 1,
@@ -855,7 +900,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 18,
+    _id: 4,
     nombre: "bodega7",
     id_responsable: 17,
     estado: 1,
@@ -866,7 +911,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 19,
+    _id: 5,
     nombre: "bodega8",
     id_responsable: 11,
     estado: 1,
@@ -877,7 +922,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 20,
+    _id: 6,
     nombre: "bodega9",
     id_responsable: 18,
     estado: 1,
@@ -888,7 +933,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 22,
+    _id: 7,
     nombre: "jsjsjss",
     id_responsable: 13,
     estado: 1,
@@ -899,7 +944,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 23,
+    _id: 8,
     nombre: "leeche",
     id_responsable: 13,
     estado: 1,
@@ -910,7 +955,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 24,
+    _id: 9,
     nombre: "soto1",
     id_responsable: 15,
     estado: 1,
@@ -921,7 +966,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 25,
+    _id: 10,
     nombre: "soto2",
     id_responsable: 15,
     estado: 1,
@@ -932,7 +977,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 26,
+    _id: 11,
     nombre: "prueba",
     id_responsable: 12,
     estado: 1,
@@ -943,7 +988,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 27,
+    _id: 12,
     nombre: "fsfdf",
     id_responsable: 13,
     estado: 1,
@@ -954,7 +999,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 28,
+    _id: 13,
     nombre: "prueba",
     id_responsable: 12,
     estado: 1,
@@ -965,7 +1010,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 29,
+    _id: 14,
     nombre: "bodegajuanpablo",
     id_responsable: 19,
     estado: 1,
@@ -976,7 +1021,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 30,
+    _id: 15,
     nombre: "micasa",
     id_responsable: 18,
     estado: 1,
@@ -987,7 +1032,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 31,
+    _id: 16,
     nombre: "casamedrano",
     id_responsable: 17,
     estado: 1,
@@ -998,7 +1043,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 32,
+    _id: 17,
     nombre: "centro",
     id_responsable: 18,
     estado: 1,
@@ -1010,7 +1055,7 @@ db.bodegas.insertMany([
   },
   // ... (Registros posteriores)
   {
-    _id: 35,
+    _id: 18,
     nombre: "bodega35",
     id_responsable: 11,
     estado: 1,
@@ -1021,7 +1066,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 36,
+    _id: 19,
     nombre: "asdefg",
     id_responsable: 11,
     estado: 1,
@@ -1032,7 +1077,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 37,
+    _id: 20,
     nombre: "bodega fg",
     id_responsable: 11,
     estado: 1,
@@ -1043,7 +1088,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 38,
+    _id: 21,
     nombre: "bodega fg",
     id_responsable: 11,
     estado: 1,
@@ -1054,7 +1099,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 39,
+    _id: 22,
     nombre: "bodega fg 2",
     id_responsable: 11,
     estado: 1,
@@ -1065,7 +1110,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 40,
+    _id: 23,
     nombre: "bodega fg 2",
     id_responsable: 11,
     estado: 1,
@@ -1076,7 +1121,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 41,
+    _id: 24,
     nombre: "Bodega 13.2",
     id_responsable: 11,
     estado: 1,
@@ -1087,7 +1132,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 42,
+    _id: 25,
     nombre: "Bodega Developer 13.2",
     id_responsable: 11,
     estado: 1,
@@ -1098,7 +1143,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 43,
+    _id: 26,
     nombre: "Bodega Developer 13.2",
     id_responsable: 11,
     estado: 1,
@@ -1109,7 +1154,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 44,
+    _id: 27,
     nombre: "Bodega 59",
     id_responsable: 11,
     estado: 1,
@@ -1120,7 +1165,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 48,
+    _id: 28,
     nombre: "Bodega Anderson Atuesta",
     id_responsable: 11,
     estado: 11,
@@ -1131,7 +1176,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 49,
+    _id: 29,
     nombre: "Bodega Anderson Atuesta555",
     id_responsable: 11,
     estado: 11,
@@ -1142,7 +1187,7 @@ db.bodegas.insertMany([
     deleted_at: null,
   },
   {
-    _id: 50,
+    _id: 30,
     nombre: "A Bodega",
     id_responsable: 11,
     estado: 1,
@@ -1204,7 +1249,7 @@ db.createCollection("inventarios", {
 
 db.inventarios.insertMany([
   {
-    _id: 12,
+    _id: 1,
     id_bodega: 12,
     id_producto: 18,
     cantidad: 103,
@@ -1214,7 +1259,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 13,
+    _id: 2,
     id_bodega: 19,
     id_producto: 18,
     cantidad: 220,
@@ -1224,7 +1269,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 14,
+    _id: 3,
     id_bodega: 20,
     id_producto: 13,
     cantidad: 13,
@@ -1234,7 +1279,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 18,
+    _id: 4,
     id_bodega: 19,
     id_producto: 14,
     cantidad: 7,
@@ -1244,7 +1289,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 20,
+    _id: 5,
     id_bodega: 12,
     id_producto: 27,
     cantidad: 9,
@@ -1254,7 +1299,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 25,
+    _id: 6,
     id_bodega: 19,
     id_producto: 23,
     cantidad: 45666,
@@ -1264,7 +1309,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 27,
+    _id: 7,
     id_bodega: 26,
     id_producto: 24,
     cantidad: 45000,
@@ -1274,7 +1319,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 29,
+    _id: 8,
     id_bodega: 26,
     id_producto: 25,
     cantidad: 45666,
@@ -1284,7 +1329,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 31,
+    _id: 9,
     id_bodega: 26,
     id_producto: 26,
     cantidad: 6000,
@@ -1294,7 +1339,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 32,
+    _id: 10,
     id_bodega: 28,
     id_producto: 27,
     cantidad: 89700,
@@ -1304,7 +1349,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 33,
+    _id: 11,
     id_bodega: 23,
     id_producto: 28,
     cantidad: 9999,
@@ -1314,7 +1359,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 34,
+    _id: 12,
     id_bodega: 18,
     id_producto: 18,
     cantidad: 7898,
@@ -1324,7 +1369,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 35,
+    _id: 13,
     id_bodega: 18,
     id_producto: 27,
     cantidad: 55281,
@@ -1334,7 +1379,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 36,
+    _id: 14,
     id_bodega: 29,
     id_producto: 29,
     cantidad: 5993,
@@ -1344,7 +1389,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 37,
+    _id: 15,
     id_bodega: 29,
     id_producto: 27,
     cantidad: 5005,
@@ -1354,7 +1399,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 38,
+    _id: 16,
     id_bodega: 24,
     id_producto: 30,
     cantidad: 52222,
@@ -1364,7 +1409,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 39,
+    _id: 17,
     id_bodega: 30,
     id_producto: 29,
     cantidad: 7,
@@ -1374,7 +1419,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 40,
+    _id: 18,
     id_bodega: 24,
     id_producto: 24,
     cantidad: 666,
@@ -1384,7 +1429,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 41,
+    _id: 19,
     id_bodega: 19,
     id_producto: 31,
     cantidad: 50,
@@ -1394,7 +1439,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 42,
+    _id: 20,
     id_bodega: 18,
     id_producto: 31,
     cantidad: 4500,
@@ -1404,7 +1449,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 43,
+    _id: 21,
     id_bodega: 13,
     id_producto: 28,
     cantidad: 87000,
@@ -1414,7 +1459,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 44,
+    _id: 22,
     id_bodega: 26,
     id_producto: 31,
     cantidad: 50,
@@ -1424,7 +1469,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 45,
+    _id: 23,
     id_bodega: 32,
     id_producto: 32,
     cantidad: 200,
@@ -1434,7 +1479,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 46,
+    _id: 24,
     id_bodega: 13,
     id_producto: 18,
     cantidad: 6666,
@@ -1444,7 +1489,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 47,
+    _id: 25,
     id_bodega: 11,
     id_producto: 33,
     cantidad: 900,
@@ -1454,7 +1499,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 48,
+    _id: 26,
     id_bodega: 30,
     id_producto: 13,
     cantidad: 100,
@@ -1464,7 +1509,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 49,
+    _id: 27,
     id_bodega: 28,
     id_producto: 34,
     cantidad: 8000,
@@ -1474,7 +1519,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 50,
+    _id: 28,
     id_bodega: 30,
     id_producto: 27,
     cantidad: 6777,
@@ -1484,7 +1529,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 51,
+    _id: 29,
     id_bodega: 12,
     id_producto: 31,
     cantidad: 600,
@@ -1494,7 +1539,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 53,
+    _id: 30,
     id_bodega: 13,
     id_producto: 35,
     cantidad: 10,
@@ -1504,7 +1549,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 54,
+    _id: 31,
     id_bodega: 24,
     id_producto: 36,
     cantidad: 10,
@@ -1514,7 +1559,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 55,
+    _id: 32,
     id_bodega: 20,
     id_producto: 37,
     cantidad: 10,
@@ -1524,7 +1569,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 60,
+    _id: 33,
     id_bodega: 11,
     id_producto: 11,
     cantidad: 100,
@@ -1534,7 +1579,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 61,
+    _id: 34,
     id_bodega: 11,
     id_producto: 54,
     cantidad: 100,
@@ -1544,7 +1589,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 62,
+    _id: 35,
     id_bodega: 11,
     id_producto: 55,
     cantidad: 100,
@@ -1554,7 +1599,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 63,
+    _id: 36,
     id_bodega: 11,
     id_producto: 48,
     cantidad: 200,
@@ -1564,7 +1609,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 67,
+    _id: 37,
     id_bodega: 11,
     id_producto: 20,
     cantidad: 10,
@@ -1574,7 +1619,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 68,
+    _id: 38,
     id_bodega: 12,
     id_producto: 20,
     cantidad: 92,
@@ -1584,7 +1629,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 69,
+    _id: 39,
     id_bodega: 13,
     id_producto: 20,
     cantidad: 1080,
@@ -1594,7 +1639,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 70,
+    _id: 40,
     id_bodega: 11,
     id_producto: 57,
     cantidad: 500,
@@ -1604,7 +1649,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 71,
+    _id: 41,
     id_bodega: 11,
     id_producto: 58,
     cantidad: 500,
@@ -1614,7 +1659,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 72,
+    _id: 42,
     id_bodega: 11,
     id_producto: 59,
     cantidad: 500,
@@ -1624,7 +1669,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 73,
+    _id: 43,
     id_bodega: 11,
     id_producto: 34,
     cantidad: 500,
@@ -1634,7 +1679,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 74,
+    _id: 44,
     id_bodega: 12,
     id_producto: 34,
     cantidad: 200,
@@ -1644,7 +1689,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 75,
+    _id: 45,
     id_bodega: 12,
     id_producto: 33,
     cantidad: 600,
@@ -1654,7 +1699,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 76,
+    _id: 46,
     id_bodega: 50,
     id_producto: 60,
     cantidad: 74,
@@ -1664,7 +1709,7 @@ db.inventarios.insertMany([
     deleted_at: null,
   },
   {
-    _id: 77,
+    _id: 47,
     id_bodega: 12,
     id_producto: 12,
     cantidad: 124,
@@ -1735,7 +1780,7 @@ db.createCollection("historiales", {
 
 db.historiales.insertMany([
   {
-    _id: 18,
+    _id: 1,
     cantidad: 7,
     id_bodega_origen: 12,
     id_bodega_destino: 18,
@@ -1746,7 +1791,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 20,
+    _id: 2,
     cantidad: 9,
     id_bodega_origen: 11,
     id_bodega_destino: 12,
@@ -1757,7 +1802,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 21,
+    _id: 3,
     cantidad: 7,
     id_bodega_origen: 29,
     id_bodega_destino: 30,
@@ -1768,7 +1813,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 22,
+    _id: 4,
     cantidad: 666,
     id_bodega_origen: 26,
     id_bodega_destino: 24,
@@ -1779,7 +1824,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 23,
+    _id: 5,
     cantidad: 100,
     id_bodega_origen: 19,
     id_bodega_destino: 18,
@@ -1790,7 +1835,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 24,
+    _id: 6,
     cantidad: 25,
     id_bodega_origen: 19,
     id_bodega_destino: 26,
@@ -1801,7 +1846,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 25,
+    _id: 7,
     cantidad: 25,
     id_bodega_origen: 19,
     id_bodega_destino: 26,
@@ -1812,7 +1857,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 26,
+    _id: 8,
     cantidad: 300,
     id_bodega_origen: 18,
     id_bodega_destino: 12,
@@ -1823,7 +1868,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 27,
+    _id: 9,
     cantidad: 300,
     id_bodega_origen: 18,
     id_bodega_destino: 12,
@@ -1834,7 +1879,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 28,
+    _id: 10,
     cantidad: 1,
     id_bodega_origen: 12,
     id_bodega_destino: 11,
@@ -1845,7 +1890,7 @@ db.historiales.insertMany([
     deleted_at: null,
   },
   {
-    _id: 29,
+    _id: 11,
     cantidad: 200,
     id_bodega_origen: 11,
     id_bodega_destino: 12,
