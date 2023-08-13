@@ -1,9 +1,13 @@
 import { Router } from "express";
-import { agregarBodegaController } from "../controllers/postControllers.js";
+import {
+  agregarBodegaController,
+  agregarProductoController,
+} from "../controllers/postControllers.js";
 
 const postInitRoute = () => {
   const router = Router();
   router.post("/agregarBodega", agregarBodegaController);
+  router.post("/agregarProducto", agregarProductoController);
   return router;
 };
 

@@ -40,6 +40,25 @@ class Inventarios {
       throw error;
     }
   }
+  async agregarInventarioDefault() {
+    try {
+      const date = new Date();
+      const connection = await this.connect();
+      const resultado = await connection.insertOne({
+        _id: this._id,
+        id_bodega: 10,
+        id_producto: this.id_producto,
+        cantidad: 100,
+        created_by: this.created_by,
+        created_at: date,
+        updated_at: null,
+        deleted_at: null,
+      });
+      return resultado;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Inventarios };
