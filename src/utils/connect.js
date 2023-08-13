@@ -24,3 +24,11 @@ export default async function connection(col) {
     return { status: 500, message: error };
   }
 }
+const startTransaction = async () => {
+  const db = await connect();
+  const session = db.client.startSession();
+  session.startTransaction();
+  return session;
+};
+
+export { startTransaction };
