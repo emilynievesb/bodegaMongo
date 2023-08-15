@@ -1,3 +1,4 @@
+import autoIncrementID from "../utils/autoIncrement.js";
 import connection from "../utils/connect.js";
 
 class Inventarios {
@@ -41,11 +42,15 @@ class Inventarios {
     }
   }
   async agregarInventarioDefault() {
+    let session;
     try {
+      const incremental = autoIncrementID("historiales");
+      const { id, session: newSession } = incremental;
+      session = newSession;
       const date = new Date();
       const connection = await this.connect();
       const resultado = await connection.insertOne({
-        _id: this._id,
+        _id: id,
         id_bodega: 10,
         id_producto: this.id_producto,
         cantidad: 100,
@@ -54,17 +59,26 @@ class Inventarios {
         updated_at: null,
         deleted_at: null,
       });
+      await session.commitTransaction();
       return resultado;
     } catch (error) {
       throw error;
+    } finally {
+      if (session) {
+        session.endSession();
+      }
     }
   }
   async agregarInventario() {
+    let session;
     try {
+      const incremental = autoIncrementID("inventarios");
+      const { id, session: newSession } = incremental;
+      session = newSession;
       const date = new Date();
       const connection = await this.connect();
       const resultado = await connection.insertOne({
-        _id: this._id,
+        _id: id,
         id_bodega: this.id_bodega,
         id_producto: this.id_producto,
         cantidad: this.cantidad,
@@ -73,9 +87,14 @@ class Inventarios {
         updated_at: null,
         deleted_at: null,
       });
+      await session.commitTransaction();
       return resultado;
     } catch (error) {
       throw error;
+    } finally {
+      if (session) {
+        session.endSession();
+      }
     }
   }
   async buscarInventario() {

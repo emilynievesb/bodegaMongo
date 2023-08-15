@@ -1,3 +1,4 @@
+import autoIncrementID from "../utils/autoIncrement.js";
 import connection from "../utils/connect.js";
 
 class Historiales {
@@ -35,10 +36,15 @@ class Historiales {
     }
   }
   async agregarHistorial() {
+    let session;
     const date = new Date();
     try {
+      const incremental = autoIncrementID("historiales");
+      const { id, session: newSession } = incremental;
+      session = newSession;
       const connection = await this.connect();
       const resultado = await connection.insertOne({
+        _id: Number(id),
         cantidad: this.cantidad,
         id_producto: this.id_producto,
         id_bodega_origen: this.id_bodega_origen,
@@ -50,8 +56,15 @@ class Historiales {
         updated_at: null,
         deleted_at: null,
       });
+      await session.commitTransaction();
       return resultado;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    } finally {
+      if (session) {
+        session.endSession();
+      }
+    }
   }
 }
 export { Historiales };

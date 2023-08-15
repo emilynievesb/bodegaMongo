@@ -1,3 +1,4 @@
+import autoIncrementID from "../utils/autoIncrement.js";
 import connection from "../utils/connect.js";
 
 class Bodegas {
@@ -30,10 +31,14 @@ class Bodegas {
     }
   }
   async agregarBodegas() {
+    let session;
     try {
+      const incremental = autoIncrementID("bodegas");
+      const { id, session: newSession } = incremental;
+      session = newSession;
       const connection = await this.connect();
       const resultado = await connection.insertOne({
-        _id: this._id,
+        _id: Number(id),
         nombre: String(this.nombre),
         id_responsable: Number(this.id_responsable),
         estado: this.estado,
@@ -42,9 +47,14 @@ class Bodegas {
         updated_at: null,
         deleted_at: null,
       });
+      await session.commitTransaction();
       return resultado;
     } catch (error) {
       throw error;
+    } finally {
+      if (session) {
+        session.endSession();
+      }
     }
   }
 }

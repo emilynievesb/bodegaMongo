@@ -18,7 +18,7 @@ class Counters {
     try {
       const connection = await this.connect();
       const counterDoc = await connection.findOneAndUpdate(
-        { _id: this.collection },
+        { _id: `${this.collection}Id` },
         { $inc: { sequence_value: 1 } },
         { session, returnOriginal: false, upsert: true }
       );

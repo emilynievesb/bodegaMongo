@@ -1,3 +1,4 @@
+import autoIncrementID from "../utils/autoIncrement.js";
 import connection from "../utils/connect.js";
 
 class Productos {
@@ -17,10 +18,14 @@ class Productos {
     }
   }
   async agregarProductos() {
+    let session;
     try {
+      const incremental = autoIncrementID("productos");
+      const { id, session: newSession } = incremental;
+      session = newSession;
       const connection = await this.connect();
       const resultado = await connection.insertOne({
-        _id: this._id,
+        _id: id,
         nombre: this.nombre,
         descripcion: this.descripcion,
         estado: this.estado,
@@ -29,9 +34,14 @@ class Productos {
         updated_at: null,
         deleted_at: null,
       });
+      await session.commitTransaction();
       return resultado;
     } catch (error) {
       throw error;
+    } finally {
+      if (session) {
+        session.endSession();
+      }
     }
   }
 }

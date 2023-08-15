@@ -2,51 +2,35 @@ import { Bodegas } from "../collections/bodegas.js";
 import { Historiales } from "../collections/historiales.js";
 import { Inventarios } from "../collections/inventarios.js";
 import { Productos } from "../collections/productos.js";
-import autoIncrementID from "../utils/autoIncrement.js";
 import { buscarInventario } from "./getServices.js";
 import { descontarInventario } from "./putServices.js";
 
 const agregarBodega = async (nombre, id_responsable, estado, created_by) => {
-  const res = await autoIncrementID("bodegaId");
-  const { id, session } = res;
   const bodega = new Bodegas();
-  bodega._id = id;
   bodega.nombre = nombre;
   bodega.id_responsable = id_responsable;
   bodega.estado = estado;
   bodega.created_by = created_by;
   const result = await bodega.agregarBodegas();
-  await session.commitTransaction();
-  session.endSession();
   return await result;
 };
 
 const agregarInventario = async (id_producto, created_at) => {
-  const res = await autoIncrementID("inventarioId");
-  const { id, session } = res;
   const inventario = new Inventarios();
-  inventario._id = id;
   inventario.id_producto = id_producto;
   inventario.created_at = created_at;
   const result = await inventario.agregarInventarioDefault();
-  await session.commitTransaction();
-  session.endSession();
   return await result;
 };
 
 const agregarProductos = async (nombre, descripcion, estado, created_by) => {
-  const res = await autoIncrementID("productoId");
-  const { id, session } = res;
   const producto = new Productos();
-  producto._id = id;
   producto.nombre = nombre;
   producto.descripcion = descripcion;
   producto.estado = estado;
   producto.created_by = created_by;
   producto.agregarProductos();
   const inventario = await agregarInventario(id, created_by);
-  await session.commitTransaction();
-  session.endSession();
   return await inventario;
 };
 
@@ -62,13 +46,8 @@ const nuevoInventario = async (
   inventario.cantidad = cantidad;
   const inventarioEncontrado = await inventario.buscarInventario();
   if (inventarioEncontrado === undefined) {
-    const res = await autoIncrementID("inventarioId");
-    const { id, session } = res;
-    inventario._id = id;
     inventario.created_by = created_by;
     const result = await inventario.agregarInventario();
-    await session.commitTransaction();
-    session.endSession();
     return result;
   } else {
     const { _id } = inventarioEncontrado;
@@ -115,19 +94,12 @@ const crearHistorial = async (
   }
   //!Creamos el registro de traslado
   const historial = new Historiales();
-  const res = await autoIncrementID("historialesId");
-  const { id, session } = res;
-  historial._id = id;
   historial.cantidad = cantidad;
   historial.id_bodega_origen = id_bodega_origen;
   historial.id_bodega_destino = id_bodega_destino;
   historial.id_inventario = idInventarioOrigen;
   historial.created_by = created_by;
   const response = await historial.agregarHistorial();
-
-  await session.commitTransaction();
-  session.endSession();
-
   return response;
 };
 
