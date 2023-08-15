@@ -11,4 +11,11 @@ const totalInventarios = async () => {
   return await inventarios.totalInventarios();
 };
 
-export { ordenarBodegas, totalInventarios };
+const buscarInventario = async (id_bodega, id_producto) => {
+  const inventarios = new Inventarios();
+  inventarios.id_bodega = id_bodega;
+  inventarios.id_producto = id_producto;
+  return await inventarios.buscarInventario();
+};
+
+export { ordenarBodegas, totalInventarios, buscarInventario };

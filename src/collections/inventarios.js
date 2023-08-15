@@ -112,6 +112,26 @@ class Inventarios {
       throw error;
     }
   }
+  async descontarInventario() {
+    const filter = {
+      _id: this._id,
+    };
+    const update = {
+      $inc: {
+        cantidad: -this.cantidad,
+      },
+      $set: {
+        updated_at: new Date(),
+      },
+    };
+    try {
+      const connection = await this.connect();
+      const resultado = await connection.updateOne(filter, update);
+      return resultado;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export { Inventarios };

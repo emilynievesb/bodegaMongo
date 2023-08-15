@@ -1,6 +1,7 @@
 import {
   agregarBodega,
   agregarProductos,
+  crearHistorial,
   nuevoInventario,
 } from "../services/postServices.js";
 
@@ -48,8 +49,27 @@ const nuevoInventarioController = async (req, res, next) => {
     res.status(500).json(error.message);
   }
 };
+
+const agregarHistorialController = async (req, res, next) => {
+  try {
+    const { cantidad, bodega_origen, bodega_destino, producto, creador } =
+      req.body;
+    const result = await crearHistorial(
+      cantidad,
+      bodega_origen,
+      bodega_destino,
+      producto,
+      creador
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 export {
   agregarBodegaController,
   agregarProductoController,
   nuevoInventarioController,
+  agregarHistorialController,
 };

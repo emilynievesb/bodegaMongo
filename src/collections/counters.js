@@ -23,7 +23,6 @@ class Counters {
         { session, returnOriginal: false, upsert: true }
       );
       const newId = counterDoc.value.sequence_value + 1;
-      await session.commitTransaction();
       return { id: newId, session: session };
     } catch (error) {
       await session.abortTransaction();

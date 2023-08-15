@@ -1,12 +1,13 @@
 import { Bodegas } from "../collections/bodegas.js";
-import { Counters } from "../collections/counters.js";
+import { Historiales } from "../collections/historiales.js";
 import { Inventarios } from "../collections/inventarios.js";
 import { Productos } from "../collections/productos.js";
+import autoIncrementID from "../utils/autoIncrement.js";
+import { buscarInventario } from "./getServices.js";
+import { descontarInventario } from "./putServices.js";
 
 const agregarBodega = async (nombre, id_responsable, estado, created_by) => {
-  const nuevoId = new Counters();
-  nuevoId.collection = "bodegaId";
-  const res = await nuevoId.getID();
+  const res = await autoIncrementID("bodegaId");
   const { id, session } = res;
   const bodega = new Bodegas();
   bodega._id = id;
@@ -14,27 +15,27 @@ const agregarBodega = async (nombre, id_responsable, estado, created_by) => {
   bodega.id_responsable = id_responsable;
   bodega.estado = estado;
   bodega.created_by = created_by;
+  const result = await bodega.agregarBodegas();
+  await session.commitTransaction();
   session.endSession();
-  return await bodega.agregarBodegas();
+  return await result;
 };
 
 const agregarInventario = async (id_producto, created_at) => {
-  const nuevoId = new Counters();
-  nuevoId.collection = "inventarioId";
-  const res = await nuevoId.getID();
+  const res = await autoIncrementID("inventarioId");
   const { id, session } = res;
   const inventario = new Inventarios();
   inventario._id = id;
   inventario.id_producto = id_producto;
   inventario.created_at = created_at;
+  const result = await inventario.agregarInventarioDefault();
+  await session.commitTransaction();
   session.endSession();
-  return await inventario.agregarInventarioDefault();
+  return await result;
 };
 
 const agregarProductos = async (nombre, descripcion, estado, created_by) => {
-  const nuevoId = new Counters();
-  nuevoId.collection = "productoId";
-  const res = await nuevoId.getID();
+  const res = await autoIncrementID("productoId");
   const { id, session } = res;
   const producto = new Productos();
   producto._id = id;
@@ -44,8 +45,8 @@ const agregarProductos = async (nombre, descripcion, estado, created_by) => {
   producto.created_by = created_by;
   producto.agregarProductos();
   const inventario = await agregarInventario(id, created_by);
+  await session.commitTransaction();
   session.endSession();
-
   return await inventario;
 };
 
@@ -60,14 +61,13 @@ const nuevoInventario = async (
   inventario.id_producto = id_producto;
   inventario.cantidad = cantidad;
   const inventarioEncontrado = await inventario.buscarInventario();
-  if (inventarioEncontrado._id === undefined) {
-    const nuevoId = new Counters();
-    nuevoId.collection = "inventarioId";
-    const res = await nuevoId.getID();
+  if (inventarioEncontrado === undefined) {
+    const res = await autoIncrementID("inventarioId");
     const { id, session } = res;
     inventario._id = id;
     inventario.created_by = created_by;
     const result = await inventario.agregarInventario();
+    await session.commitTransaction();
     session.endSession();
     return result;
   } else {
@@ -77,4 +77,58 @@ const nuevoInventario = async (
   }
 };
 
-export { agregarBodega, agregarProductos, nuevoInventario };
+const crearHistorial = async (
+  cantidad,
+  id_bodega_origen,
+  id_bodega_destino,
+  id_producto,
+  created_by
+) => {
+  //? validación de ese producto en la bodega de origen
+  const bodegaOrigen = await buscarInventario(id_bodega_origen, id_producto);
+  const { _id: idInventarioOrigen, cantidad: cantidadInventarioOrigen } =
+    bodegaOrigen;
+  if (bodegaOrigen === undefined) {
+    throw new Error(
+      "No existe inventario de ese producto en la bodega de origen"
+    );
+  }
+  if (cantidadInventarioOrigen < cantidad) {
+    throw new Error(
+      "La cantidad a trasladar es mayor a la que hay en inventario"
+    );
+  }
+  //? descontamos la cantidad, de la bodega de origen
+  await descontarInventario(idInventarioOrigen, cantidad);
+  //!HASTA AQUI YA SE DEBIÓ ACTUALIZAR EL INVENTARIO DE LA BODEGA DE ORIGEN */
+
+  //*AHORA INICIAREMOS CON EL INVENTARIO DE LA BODEGA DESTINO */
+  //!Esta función crea o actualiza un inventario
+  const inventarioDestino = await nuevoInventario(
+    id_bodega_destino,
+    id_producto,
+    cantidad,
+    created_by
+  );
+  if (!inventarioDestino.modifiedCount || !inventarioDestino.insertedId) {
+    throw new Error("Error el crear o actualizar un inventario");
+  }
+  //!Creamos el registro de traslado
+  const historial = new Historiales();
+  const res = await autoIncrementID("historialesId");
+  const { id, session } = res;
+  historial._id = id;
+  historial.cantidad = cantidad;
+  historial.id_bodega_origen = id_bodega_origen;
+  historial.id_bodega_destino = id_bodega_destino;
+  historial.id_inventario = idInventarioOrigen;
+  historial.created_by = created_by;
+  const response = await historial.agregarHistorial();
+
+  await session.commitTransaction();
+  session.endSession();
+
+  return response;
+};
+
+export { agregarBodega, agregarProductos, nuevoInventario, crearHistorial };
