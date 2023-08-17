@@ -50,11 +50,12 @@ const nuevoInventario = async (
   if (inventarioEncontrado === undefined) {
     inventario.created_by = created_by;
     const result = await inventario.agregarInventario();
-    return result;
+    return `El inventario ${result.insertedId} se agregó`;
   } else {
     const { _id } = inventarioEncontrado;
     inventario._id = _id;
-    return await inventario.actualizarInventario();
+    const act = await inventario.actualizarInventario();
+    return `El inventario ${_id} se actualizó`;
   }
 };
 

@@ -38,4 +38,19 @@ const agregarProductoDTO = async (req, res, next) => {
   }
 };
 
-export { agregarBodegaDTO, agregarProductoDTO };
+const nuevoInventarioDTO = async (req, res, next) => {
+  try {
+    const productSchema = object({
+      bodega: number().strict().required(),
+      producto: number().strict().required(),
+      cantidad: number().strict().required(),
+      creador: number().strict().required(),
+    });
+    await productSchema.validate(req.body);
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.errors });
+  }
+};
+
+export { agregarBodegaDTO, agregarProductoDTO, nuevoInventarioDTO };

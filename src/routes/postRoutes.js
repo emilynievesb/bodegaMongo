@@ -5,7 +5,11 @@ import {
   agregarProductoController,
   nuevoInventarioController,
 } from "../controllers/postControllers.js";
-import { agregarBodegaDTO, agregarProductoDTO } from "./DTO/postDTO.js";
+import {
+  agregarBodegaDTO,
+  agregarProductoDTO,
+  nuevoInventarioDTO,
+} from "./DTO/postDTO.js";
 
 const postInitRoute = () => {
   const router = Router();
@@ -15,7 +19,11 @@ const postInitRoute = () => {
     agregarProductoDTO,
     agregarProductoController
   );
-  router.post("/nuevoInventario", nuevoInventarioController);
+  router.post(
+    "/nuevoInventario",
+    nuevoInventarioDTO,
+    nuevoInventarioController
+  );
   router.post("/traslado", agregarHistorialController);
   return router;
 };
