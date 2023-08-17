@@ -9,7 +9,9 @@ const agregarBodegaController = async (req, res, next) => {
   try {
     const { nombre, id_responsable, estado, creador } = req.body;
     const bodega = await agregarBodega(nombre, id_responsable, estado, creador);
-    res.status(200).json(bodega);
+    if (bodega.insertedId) {
+      res.status(200).json(`Bodega ${bodega.insertedId} creada correctamente`);
+    }
   } catch (error) {
     res.status(500).json(error.message);
   }
