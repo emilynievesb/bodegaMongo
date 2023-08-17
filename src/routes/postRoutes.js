@@ -7,6 +7,7 @@ import {
 } from "../controllers/postControllers.js";
 import {
   agregarBodegaDTO,
+  agregarHistorialDTO,
   agregarProductoDTO,
   nuevoInventarioDTO,
 } from "./DTO/postDTO.js";
@@ -24,7 +25,7 @@ const postInitRoute = () => {
     nuevoInventarioDTO,
     nuevoInventarioController
   );
-  router.post("/traslado", agregarHistorialController);
+  router.post("/traslado", agregarHistorialDTO, agregarHistorialController);
   return router;
 };
 

@@ -54,13 +54,13 @@ const nuevoInventario = async (
   } else {
     const { _id } = inventarioEncontrado;
     inventario._id = _id;
-    const act = await inventario.actualizarInventario();
+    await inventario.actualizarInventario();
     return `El inventario ${_id} se actualizó`;
   }
 };
 
 const crearHistorial = async (
-  cantidad,
+  cantidadTraslado,
   id_bodega_origen,
   id_bodega_destino,
   id_producto,
@@ -68,6 +68,7 @@ const crearHistorial = async (
 ) => {
   //? validación de ese producto en la bodega de origen
   const bodegaOrigen = await buscarInventario(id_bodega_origen, id_producto);
+  console.log(bodegaOrigen);
   const { _id: idInventarioOrigen, cantidad: cantidadInventarioOrigen } =
     bodegaOrigen;
   if (bodegaOrigen === undefined) {
@@ -75,13 +76,13 @@ const crearHistorial = async (
       "No existe inventario de ese producto en la bodega de origen"
     );
   }
-  if (cantidadInventarioOrigen < cantidad) {
+  if (cantidadInventarioOrigen < cantidadTraslado) {
     throw new Error(
       "La cantidad a trasladar es mayor a la que hay en inventario"
     );
   }
   //? descontamos la cantidad, de la bodega de origen
-  await descontarInventario(idInventarioOrigen, cantidad);
+  await descontarInventario(idInventarioOrigen, cantidadTraslado);
   //!HASTA AQUI YA SE DEBIÓ ACTUALIZAR EL INVENTARIO DE LA BODEGA DE ORIGEN */
 
   //*AHORA INICIAREMOS CON EL INVENTARIO DE LA BODEGA DESTINO */
@@ -89,21 +90,21 @@ const crearHistorial = async (
   const inventarioDestino = await nuevoInventario(
     id_bodega_destino,
     id_producto,
-    cantidad,
+    cantidadTraslado,
     created_by
   );
-  if (!inventarioDestino.modifiedCount && !inventarioDestino.insertedId) {
-    throw new Error("Error al actualizar o crear un inventario");
-  }
+  console.log(inventarioDestino);
   //!Creamos el registro de traslado
   const historial = new Historiales();
-  historial.cantidad = cantidad;
+  historial.cantidad = cantidadTraslado;
   historial.id_bodega_origen = id_bodega_origen;
   historial.id_bodega_destino = id_bodega_destino;
   historial.id_inventario = idInventarioOrigen;
   historial.created_by = created_by;
   const response = await historial.agregarHistorial();
-  return response;
+  if (response.insertedId) {
+    return `Traslado numero ${response.insertedId} creado`;
+  }
 };
 
 export { agregarBodega, agregarProductos, nuevoInventario, crearHistorial };
