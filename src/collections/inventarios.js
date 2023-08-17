@@ -44,7 +44,7 @@ class Inventarios {
   async agregarInventarioDefault() {
     let session;
     try {
-      const incremental = autoIncrementID("historiales");
+      const incremental = await autoIncrementID("inventario");
       const { id, session: newSession } = incremental;
       session = newSession;
       const date = new Date();
@@ -72,7 +72,7 @@ class Inventarios {
   async agregarInventario() {
     let session;
     try {
-      const incremental = autoIncrementID("inventarios");
+      const incremental = await autoIncrementID("inventario");
       const { id, session: newSession } = incremental;
       session = newSession;
       const date = new Date();

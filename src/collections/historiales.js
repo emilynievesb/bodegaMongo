@@ -39,7 +39,7 @@ class Historiales {
     let session;
     const date = new Date();
     try {
-      const incremental = autoIncrementID("historiales");
+      const incremental = await autoIncrementID("historial");
       const { id, session: newSession } = incremental;
       session = newSession;
       const connection = await this.connect();

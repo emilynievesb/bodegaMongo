@@ -33,7 +33,7 @@ class Bodegas {
   async agregarBodegas() {
     let session;
     try {
-      const incremental = autoIncrementID("bodegas");
+      const incremental = await autoIncrementID("bodega");
       const { id, session: newSession } = incremental;
       session = newSession;
       const connection = await this.connect();

@@ -89,8 +89,8 @@ const crearHistorial = async (
     cantidad,
     created_by
   );
-  if (!inventarioDestino.modifiedCount || !inventarioDestino.insertedId) {
-    throw new Error("Error el crear o actualizar un inventario");
+  if (!inventarioDestino.modifiedCount && !inventarioDestino.insertedId) {
+    throw new Error("Error al actualizar o crear un inventario");
   }
   //!Creamos el registro de traslado
   const historial = new Historiales();

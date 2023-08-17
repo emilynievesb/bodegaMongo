@@ -20,7 +20,7 @@ class Productos {
   async agregarProductos() {
     let session;
     try {
-      const incremental = autoIncrementID("productos");
+      const incremental = await autoIncrementID("producto");
       const { id, session: newSession } = incremental;
       session = newSession;
       const connection = await this.connect();
