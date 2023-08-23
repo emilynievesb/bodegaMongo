@@ -11,17 +11,28 @@ import {
   agregarProductoDTO,
   nuevoInventarioDTO,
 } from "./DTO/postDTO.js";
+import { limitPets, limitSize } from "../utils/limit.js";
 
 const postInitRoute = () => {
   const router = Router();
-  router.post("/agregarBodega", agregarBodegaDTO, agregarBodegaController);
+  router.post(
+    "/agregarBodega",
+    limitPets,
+    limitSize,
+    agregarBodegaDTO,
+    agregarBodegaController
+  );
   router.post(
     "/agregarProducto",
+    limitPets,
+    limitSize,
     agregarProductoDTO,
     agregarProductoController
   );
   router.post(
     "/nuevoInventario",
+    limitPets,
+    limitSize,
     nuevoInventarioDTO,
     nuevoInventarioController
   );
