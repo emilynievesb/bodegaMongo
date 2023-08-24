@@ -20,12 +20,16 @@ const postInitRoute = () => {
     limitPets,
     limitSize,
     agregarBodegaDTO,
+    authorizationMiddleware,
+    contentMiddlewareBodegas,
     agregarBodegaController
   );
   router.post(
     "/agregarProducto",
     limitPets,
     limitSize,
+    authorizationMiddleware,
+    contentMiddlewareProductos,
     agregarProductoDTO,
     agregarProductoController
   );
@@ -33,10 +37,20 @@ const postInitRoute = () => {
     "/nuevoInventario",
     limitPets,
     limitSize,
+    authorizationMiddleware,
+    contentMiddlewareInventarios,
     nuevoInventarioDTO,
     nuevoInventarioController
   );
-  router.post("/traslado", agregarHistorialDTO, agregarHistorialController);
+  router.post(
+    "/traslado",
+    limitPets,
+    limitSize,
+    authorizationMiddleware,
+    contentMiddlewareHistoriales,
+    agregarHistorialDTO,
+    agregarHistorialController
+  );
   return router;
 };
 
