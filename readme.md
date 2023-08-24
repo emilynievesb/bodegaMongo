@@ -44,6 +44,10 @@ Para ejecutar correctamente el servidor debes asegurarte de tener `nodemon`, ya 
 
         npm run dev
 
+## Autorización
+
+Para ejecutar correctamente los endpoints, debes obtener el token de cada tabla antes de hacer la consulta, por lo que en el apartado de los endpoints dejaremos escrita la url a ejecutar antes, y debes copiar el token en el header de autorización.
+
 ## Endpoints
 
 Para este proyecto se desarrollaron los siguiente endpoints diseñados para manipular la base de datos esperando los parametros por el body de la petición.
@@ -54,6 +58,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Lista de bodegas ordenadas alfabéticamente
 
+    - Authorization: `http://127.20.20.1:5000/api/token/bodegas`
     - URL: `http://127.20.20.1:5000/api/get/ordenarBodegas`
     - Método: `GET`
     - Datos de entrada (body): Ninguno.
@@ -132,6 +137,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Creación de bodegas
 
+    - Authorization: `http://127.20.20.1:5000/api/token/bodegas`
     - URL: `http://127.20.20.1:5000/api/post/agregarBodega`
     - Método: `POST`
     - Datos de entrada (body):
@@ -151,6 +157,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Lista de productos con su total en inventario de todas las bodegas
 
+    - Authorization: `http://127.20.20.1:5000/api/token/inventarios`
     - URL: `http://127.20.20.1:5000/api/get/totalInventarios`
     - Método: `GET`
     - Datos de entrada (body): Ninguno.
@@ -175,6 +182,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Agregar productos con inventario por default (en la bodega 10, con una cantidad de 100unds)
 
+    - Authorization: `http://127.20.20.1:5000/api/token/productos`
     - URL: `http://127.20.20.1:5000/api/post/agregarProducto`
     - Método: `POST`
     - Datos de entrada (body):
@@ -194,6 +202,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Creación de un inventario nuevo o actualización del inventario (si el inventario ya existía)
 
+    - Authorization: `http://127.20.20.1:5000/api/token/inventarios`
     - URL: `http://127.20.20.1:5000/inventario/nuevoInventario`
     - Método: `POST`
     - Datos de entrada (body):
@@ -217,6 +226,7 @@ Los datos acontinuación son netamente ejemplos de lo que podrían contener los 
 
 1.  Traslado de productos de bodega a bodega
 
+    - Authorization: `http://127.20.20.1:5000/api/token/historiales`
     - URL: `http://127.20.20.1:5000/api/post/traslado`
     - Método: `POST`
     - Datos de entrada (body):
